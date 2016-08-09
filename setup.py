@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name='docker-getrun',
-    version='0.0.1',
-    py_modules=['getrun'],
+    version='0.0.2',
+    py_modules=['docker-getrun'],
     description='Compose docker run command for running container',
     author='Roman Komkov',
     author_email='roman@komkov.co',
@@ -12,6 +12,6 @@ setup(
     keywords=['docker'],
     entry_points='''
         [console_scripts]
-        docker-getrun=getrun:main
+        docker-getrun=docker-getrun:main
     '''
 )

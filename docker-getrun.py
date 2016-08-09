@@ -52,6 +52,11 @@ class InspectParser(object):
         if extra_hosts:
             return ' '.join(['--add-host {}'.format(host) for host in extra_hosts])
 
+    def getopt_labels(self):
+        labels = self.get_fact('Config/Labels')
+        if labels:
+            return ' '.join(['--label {}={}'.format(k, v) for k, v in labels.iteritems()])
+
     def getopt_links(self):
         links_options = []
         links = self.get_fact('HostConfig/Links')
@@ -101,7 +106,9 @@ class InspectParser(object):
         flags_options = []
         flags = {
             'Config/Tty': '-t',
-            'Config/AttachStdin': '-i',
+            'Config/OpenStdin': '-i',
+            'HostConfig/AutoRemove': '--rm',
+            'HostConfig/Privileged': '--privileged',
         }
 
         for path, flag in flags.iteritems():
@@ -117,7 +124,7 @@ class InspectParser(object):
 
         options = []
         for attr in dir(self):
-            if attr.startswith("getopt_"):
+            if attr.startswith('getopt_'):
                 result = getattr(self, attr)()
                 if result:
                     options.append(result)
@@ -125,7 +132,7 @@ class InspectParser(object):
         image = self.get_image()
         command = self.get_command()
 
-        return "docker run {} {} {}".format(" ".join(options), image, command if command else "")
+        return 'docker run {} \\\n\t {} {}'.format(' \\\n\t'.join(options), image, command if command else '')
 
 
 def main():
