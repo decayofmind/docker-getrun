@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='docker-getrun',
     version='0.0.2',
-    py_modules=['docker-getrun'],
+    py_modules=['docker_getrun'],
     description='Compose docker run command for running container',
     author='Roman Komkov',
     author_email='roman@komkov.co',
