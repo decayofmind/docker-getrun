@@ -12,6 +12,6 @@ setup(
     keywords=['docker'],
     entry_points='''
         [console_scripts]
-        getrun=getrun:main
+        docker-getrun=getrun:main
     '''
 )
